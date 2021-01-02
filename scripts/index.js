@@ -7,7 +7,7 @@ import {
   X_SCALE,
   RANDOM_PERCENTAGE,
   MAKE_ALIVE_CONDITION_DEFAULT,
-  NO_KILL_CONDITION_DEFAULT
+  NO_KILL_CONDITION_DEFAULT,
 } from "./globals";
 import PixelManager from "./pixelManager";
 
@@ -37,9 +37,9 @@ function setupUiButton(element, pos, size, event) {
 }
 
 /**
- * @param {p5.Element} element 
- * @param {Array} pos 
- * @param {Array} event 
+ * @param {p5.Element} element
+ * @param {Array} pos
+ * @param {Array} event
  */
 function setupUiInputs(element, pos, size, event) {
   element.position(...pos);
@@ -53,14 +53,18 @@ function setupUiInputs(element, pos, size, event) {
  * @param {p5.Element} p5
  */
 function drawStatus(p5) {
-  p5.stroke(0)
+  p5.stroke(0);
   p5.strokeWeight(0.5);
-  p5.fill(0,255,0);
-  p5.textSize(1.5)
+  p5.fill(0, 255, 0);
+  p5.textSize(1.5);
   p5.text(`random count: ${slider.value() * 100}%`, 1, 2);
 
-  p5.text(`Borns when ${bornCondition.join(',')} cells around`, 1, 4)
-  p5.text(`Dies when amount of cells around not in ${noKillCondition.join(',')}`, 1, 6)
+  p5.text(`Borns when ${bornCondition.join(",")} cells around`, 1, 4);
+  p5.text(
+    `Dies when amount of cells around not in ${noKillCondition.join(",")}`,
+    1,
+    6
+  );
 }
 
 // GAME
@@ -80,15 +84,19 @@ function randomize() {
 }
 
 function setBornCondition() {
-  bornCondition = this.value().split(',').map(x => +x);
+  bornCondition = this.value()
+    .split(",")
+    .map((x) => +x);
 }
 
 function setNoKillCondition() {
-  noKillCondition = this.value().split(',').map(x => +x);
+  noKillCondition = this.value()
+    .split(",")
+    .map((x) => +x);
 }
 
 /**
- * @param {p5.Element} p5 
+ * @param {p5.Element} p5
  */
 function handleInput(p5) {
   if (p5.mouseIsPressed === true) {
@@ -107,14 +115,34 @@ let draw = (p5) => {
 
     pixelManager = new PixelManager(p5);
 
-    setupUiButton(p5.createButton("Start/Stop"), [10, 10], [110, 40], changeGameStatus);
-    setupUiButton(p5.createButton("Randomize"), [130, 10], [120, 40], randomize);
+    setupUiButton(
+      p5.createButton("Start/Stop"),
+      [10, 10],
+      [110, 40],
+      changeGameStatus
+    );
+    setupUiButton(
+      p5.createButton("Randomize"),
+      [130, 10],
+      [120, 40],
+      randomize
+    );
 
-    slider = p5.createSlider(0, 1, RANDOM_PERCENTAGE, 0.05)
+    slider = p5.createSlider(0, 1, RANDOM_PERCENTAGE, 0.05);
     slider.position(260, 10);
 
-    setupUiInputs(p5.createInput(MAKE_ALIVE_CONDITION_DEFAULT.join(',')), [400, 10], [80, 20], setBornCondition);
-    setupUiInputs(p5.createInput(NO_KILL_CONDITION_DEFAULT.join(',')), [500, 10], [80, 20], setNoKillCondition);
+    setupUiInputs(
+      p5.createInput(MAKE_ALIVE_CONDITION_DEFAULT.join(",")),
+      [400, 10],
+      [80, 20],
+      setBornCondition
+    );
+    setupUiInputs(
+      p5.createInput(NO_KILL_CONDITION_DEFAULT.join(",")),
+      [500, 10],
+      [80, 20],
+      setNoKillCondition
+    );
   };
 
   p5.draw = () => {
@@ -129,7 +157,10 @@ let draw = (p5) => {
       drawStatus(p5);
 
       p5.stroke(128, 128, 128);
-      p5.point(Math.floor(p5.mouseX / X_SCALE), Math.floor(p5.mouseY / Y_SCALE));
+      p5.point(
+        Math.floor(p5.mouseX / X_SCALE),
+        Math.floor(p5.mouseY / Y_SCALE)
+      );
 
       return;
     }
@@ -154,7 +185,7 @@ let draw = (p5) => {
 
     pixelManager.draw();
     drawStatus(p5);
-    
+
     p5.stroke(128, 128, 128);
     p5.point(Math.floor(p5.mouseX / X_SCALE), Math.floor(p5.mouseY / Y_SCALE));
   };

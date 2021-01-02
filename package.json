@@ -2,10 +2,10 @@
   "name": "cellular-automata",
   "version": "0.0.1",
   "license": "MIT",
+  "author": "Yoyrandao",
   "dependencies": {
     "p5": "^1.2.0"
   },
-  "author": "Yoyrandao",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
