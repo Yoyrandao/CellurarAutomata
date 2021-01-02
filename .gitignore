@@ -1,3 +1,4 @@
 dist
 .cache
+.firebase
 node_modules/
