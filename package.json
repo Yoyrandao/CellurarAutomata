@@ -1,0 +1,14 @@
+{
+  "name": "cellular-automata",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "p5": "^1.2.0"
+  },
+  "author": "Yoyrandao",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "deploy": "rm -rf dist/ && yarn build && gh-pages"
+  }
+}
