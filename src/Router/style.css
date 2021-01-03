@@ -1,0 +1,33 @@
+.navigation__title__content {
+	padding: 0.6em 20px;
+	display: inline-block;
+	color: white;
+}
+
+.navigation {
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px;
+	border-style: solid;
+	border-color: black;
+
+	background-color: #272C36 !important;
+}
+
+.rs-dropdown-toggle-caret {
+	top: 1.2em !important;
+}
+
+.rs-btn-lg {
+	color: white !important;
+}
+
+.rs-btn:hover, .rs-nav-item-content:hover {
+	background-color: #424B5C !important;
+}
+
+a {
+	font-size: 1em;
+	font-family: 'Segoe UI', sans-serif;
+}

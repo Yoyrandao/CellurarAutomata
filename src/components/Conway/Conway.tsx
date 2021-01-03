@@ -1,70 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Sketch from "react-p5";
 import p5 from "p5";
 
-import PixelManager from "./pixelManager";
+import {PixelManager} from "./pixelManager";
 
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   MAKE_ALIVE_CONDITION_DEFAULT,
   NO_KILL_CONDITION_DEFAULT,
-  RANDOM_PERCENTAGE,
+  RANDOM_PERCENTAGE_DEFAULT,
   X_SCALE,
   Y_SCALE,
 } from "./globals";
 
 import "./style.css";
+import { Button, ButtonToolbar, Input, InputGroup, Slider } from "rsuite";
+
+interface IConwayState {
+  randomPercentage: number;
+  bornCondition: number[];
+  noKillCondition: number[];
+  started: boolean;
+  pixelManager: PixelManager;
+}
 
 const Conway = () => {
-  let slider: p5.Element;
-  let bornInput: p5.Element;
-  let aliveInput: p5.Element;
-
-  let bornCondition = MAKE_ALIVE_CONDITION_DEFAULT;
-  let noKillCondition = NO_KILL_CONDITION_DEFAULT;
-
-  let started = false;
-
-  let pixelManager: PixelManager;
-
-  /**
-   * @param {p5.Element} element
-   * @param {Array} pos
-   * @param {Array} event
-   */
-  function setupUiButton(
-    element: p5.Element,
-    pos: number[],
-    size: number[],
-    event: boolean | ((...args: any[]) => any)
-  ) {
-    element.position(...pos);
-    element.mousePressed(event);
-    element.size(size[0], size[1]);
-
-    element.style("font-size", "21px");
-    element.style("margin-top", "50px");
-  }
-
-  /**
-   * @param {p5.Element} element
-   * @param {Array} pos
-   * @param {Array} event
-   */
-  function setupUiInputs(
-    element: any,
-    pos: number[],
-    size: number[],
-    event: boolean | ((...args: any[]) => any)
-  ) {
-    element.position(...pos);
-    element.input(event);
-    element.size(...size);
-
-    element.style("font-size", "21px");
-    element.style("margin-top", "57px");
-  }
+  const [conwayState, setConwayState] = useState<IConwayState>({
+    randomPercentage: RANDOM_PERCENTAGE_DEFAULT,
+    bornCondition: MAKE_ALIVE_CONDITION_DEFAULT,
+    noKillCondition: NO_KILL_CONDITION_DEFAULT,
+    started: false,
+    pixelManager: undefined as any
+  });
 
   /**
    * @param {p5} p5
@@ -74,44 +42,60 @@ const Conway = () => {
     p5.strokeWeight(0.5);
     p5.fill(0, 255, 0);
     p5.textSize(1.5);
-    p5.text(`random count: ${+slider.value() * 100}%`, 1, 2);
+    p5.text(`random count: ${conwayState.randomPercentage * 100}%`, 1, 2);
 
-    p5.text(`Borns when ${bornCondition.join(",")} cells around`, 1, 4);
+    p5.text(`Borns when ${conwayState.bornCondition.join(",")} cells around`, 1, 4);
     p5.text(
-      `Dies when amount of cells around not in ${noKillCondition.join(",")}`,
+      `Dies when amount of cells around not in ${conwayState.noKillCondition.join(",")}`,
       1,
       6
     );
   }
 
   function changeGameStatus() {
-    started = !started;
+    setConwayState(prevState => {
+      return {
+        ...prevState,
+        started: !prevState.started
+      }
+    });
   }
 
   function randomize() {
-    pixelManager.clear();
-    for (let i = 0; i < +slider.value() * CANVAS_WIDTH * CANVAS_HEIGHT; i++) {
-      pixelManager.makeAlive(
+    conwayState.pixelManager.clear();
+    for (let i = 0; i < conwayState.randomPercentage * CANVAS_WIDTH * CANVAS_HEIGHT; i++) {
+      conwayState.pixelManager.makeAlive(
         Math.floor(Math.random() * CANVAS_WIDTH),
         Math.floor(Math.random() * CANVAS_HEIGHT)
       );
     }
   }
 
-  function setBornCondition() {
-    bornCondition = bornInput
-      .value()
-      .toString()
-      .split(",")
-      .map((x) => +x);
+  function onRandomChange(value: number) {
+    setConwayState(prevState => {
+      return {
+        ...prevState,
+        randomPercentage: value
+      }
+    });
   }
 
-  function setNoKillCondition() {
-    noKillCondition = aliveInput
-      .value()
-      .toString()
-      .split(",")
-      .map((x) => +x);
+  function setBornCondition(value: string, event: React.SyntheticEvent<HTMLElement, Event>) {
+    setConwayState(prevState => {
+      return {
+        ...prevState,
+        bornCondition: value.toString().split(",").map(x => +x)
+      }
+    });
+  }
+
+  function setNoKillCondition(value: string, event: React.SyntheticEvent<HTMLElement, Event>) {
+    setConwayState(prevState => {
+      return {
+        ...prevState,
+        noKillCondition: value.toString().split(",").map(x => +x)
+      }
+    });
   }
 
   /**
@@ -119,7 +103,7 @@ const Conway = () => {
    */
   function handleInput(p5: p5) {
     if (p5.mouseIsPressed === true) {
-      pixelManager.makeAlive(
+      conwayState.pixelManager.makeAlive(
         Math.floor(p5.mouseX / X_SCALE),
         Math.floor(p5.mouseY / Y_SCALE)
       );
@@ -133,41 +117,23 @@ const Conway = () => {
     p5.frameRate(10);
     p5.background(255);
 
-    pixelManager = new PixelManager(p5);
-
-    setupUiButton(
-      p5.createButton("Start/Stop"),
-      [10, 10],
-      [110, 40],
-      changeGameStatus
-    );
-    setupUiButton(
-      p5.createButton("Randomize"),
-      [130, 10],
-      [120, 40],
-      randomize
-    );
-
-    slider = p5.createSlider(0, 1, RANDOM_PERCENTAGE, 0.05);
-    slider.position(260, 10);
-    slider.style("margin-top", "60px");
-
-    bornInput = p5.createInput(MAKE_ALIVE_CONDITION_DEFAULT.join(","));
-    aliveInput = p5.createInput(NO_KILL_CONDITION_DEFAULT.join(","));
-
-    setupUiInputs(bornInput, [400, 10], [80, 20], setBornCondition);
-    setupUiInputs(aliveInput, [500, 10], [80, 20], setNoKillCondition);
+    setConwayState(prevState => {
+      return {
+        ...prevState,
+        pixelManager: new PixelManager(p5)
+      }
+    });
   };
 
   const draw = (p5: p5) => {
     p5.frameRate(10);
     p5.scale(X_SCALE, Y_SCALE);
 
-    if (!started) {
+    if (!conwayState.started) {
       p5.frameRate(60);
       handleInput(p5);
 
-      pixelManager.draw();
+      conwayState.pixelManager.draw();
       drawStatus(p5);
 
       p5.stroke(128, 128, 128);
@@ -182,29 +148,71 @@ const Conway = () => {
     handleInput(p5);
     p5.clear();
 
-    let map = pixelManager.generateNeighboursMap();
+    let map = conwayState.pixelManager.generateNeighboursMap();
     for (let i = 0; i < CANVAS_HEIGHT; i++) {
       for (let j = 0; j < CANVAS_WIDTH; j++) {
-        let state = pixelManager.getState(i, j);
+        let state = conwayState.pixelManager.getState(i, j);
 
-        if (state == 0 && bornCondition.includes(map[i][j])) {
-          pixelManager.makeAlive(i, j);
+        if (state == 0 && conwayState.bornCondition.includes(map[i][j])) {
+          conwayState.pixelManager.makeAlive(i, j);
         }
 
-        if (state == 1 && !noKillCondition.includes(map[i][j])) {
-          pixelManager.kill(i, j);
+        if (state == 1 && !conwayState.noKillCondition.includes(map[i][j])) {
+          conwayState.pixelManager.kill(i, j);
         }
       }
     }
 
-    pixelManager.draw();
+    conwayState.pixelManager.draw();
     drawStatus(p5);
 
     p5.stroke(128, 128, 128);
     p5.point(Math.floor(p5.mouseX / X_SCALE), Math.floor(p5.mouseY / Y_SCALE));
   };
 
-  return <Sketch setup={setup} draw={draw} />;
+  return (
+    <div className="conway-demo">
+      <div className="conway-demo__configuration-panel">
+        <ButtonToolbar className="conway-demo__configuration-panel__toolbar">
+          <Button
+            className="conway-demo__configuration-panel__button__start"
+            appearance="primary"
+            onClick={changeGameStatus}
+          >
+            {conwayState.started ? "Stop" : "Start"}
+          </Button>
+          <Button
+            className="conway-demo__configuration-panel__button__randomize"
+            appearance="default"
+            onClick={randomize}
+          >
+            Randomize
+          </Button>
+        </ButtonToolbar>
+        <div className="conway-demo__configuration-panel__slider">
+          <span className="conway-demo__configuration-panel__slider__label">Random cells %</span>
+          <Slider
+              className="conway-demo__configuration-panel__slider__value"
+              defaultValue={RANDOM_PERCENTAGE_DEFAULT}
+              onChange={onRandomChange}
+              min={0.05}
+              max={1.0}
+              step={0.05}
+            />
+        </div>
+        <InputGroup className="conway-demo__configuration-panel__input__born-condition">
+          <InputGroup.Addon>Born condition</InputGroup.Addon>
+          <Input value={conwayState.bornCondition.join(",")} onChange={setBornCondition}/>
+        </InputGroup>
+        <InputGroup className="conway-demo__configuration-panel__input__survive-condition">
+          <InputGroup.Addon>Survive condition</InputGroup.Addon>
+          <Input value={conwayState.noKillCondition.join(",")} onChange={setNoKillCondition}/>
+        </InputGroup>
+      </div>
+     
+      <Sketch setup={setup} draw={draw} />
+    </div>
+  );
 };
 
 export { Conway };

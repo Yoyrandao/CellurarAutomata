@@ -2,3 +2,4 @@ dist
 .cache
 .firebase
 node_modules/
+_templates
