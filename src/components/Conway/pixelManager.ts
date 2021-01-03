@@ -1,6 +1,7 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./globals";
+import p5 from "p5";
 
-function isOutOfBounds(x, y) {
+function isOutOfBounds(x: number, y: number) {
   if (x >= 0 && x < CANVAS_WIDTH && y >= 0 && y < CANVAS_HEIGHT) {
     return false;
   }
@@ -9,7 +10,10 @@ function isOutOfBounds(x, y) {
 }
 
 export default class PixelManager {
-  constructor(p5) {
+  pixels: number[][];
+  p5: p5;
+
+  constructor(p5: p5) {
     this.pixels = [];
     this.p5 = p5;
 
@@ -21,7 +25,7 @@ export default class PixelManager {
     }
   }
 
-  makeAlive(x, y) {
+  makeAlive(x: number, y: number) {
     if (isOutOfBounds(x, y)) {
       return;
     }
@@ -29,7 +33,7 @@ export default class PixelManager {
     this.pixels[y][x] = 1;
   }
 
-  kill(x, y) {
+  kill(x: number, y: number) {
     if (isOutOfBounds(x, y)) {
       return;
     }
@@ -37,7 +41,7 @@ export default class PixelManager {
     this.pixels[y][x] = 0;
   }
 
-  getState(x, y) {
+  getState(x: number, y: number) {
     if (isOutOfBounds(x, y)) {
       return;
     }
@@ -53,7 +57,7 @@ export default class PixelManager {
     }
   }
 
-  getNeighbours(x, y) {
+  getNeighbours(x: number, y: number) {
     let searches = [
       [x - 1, y - 1],
       [x, y - 1],
@@ -81,7 +85,7 @@ export default class PixelManager {
   }
 
   generateNeighboursMap() {
-    let map = [];
+    let map: number[][] = [];
 
     for (let i = 0; i < CANVAS_HEIGHT; i++) {
       map.push([]);
