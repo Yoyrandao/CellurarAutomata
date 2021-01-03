@@ -1,4 +1,86 @@
 canvas {
   border: 2px solid black;
-  margin-top: 50px;
+}
+
+.conway-demo {
+  margin: auto;
+  width: 45em;
+}
+
+.conway-demo__configuration-panel {
+  display: flex !important;
+}
+
+.conway-demo__configuration-panel__toolbar {
+  width: 10.2em;
+  margin: 1em;
+}
+
+.conway-demo__configuration-panel__button__start {
+  width: 7em;
+  height: 3em;
+
+  font-weight: bold !important;
+  font-size: 0.7em !important;
+  font-family: 'Segoe UI', sans-serif !important;
+
+  border: 2px solid black !important;
+}
+
+.conway-demo__configuration-panel__button__randomize {
+  width: 7em;
+  height: 3em;
+
+  font-weight: bold !important;
+  font-size: 0.7em !important;
+  font-family: 'Segoe UI', sans-serif !important;
+
+  border: 0.2em solid black !important;
+}
+
+.conway-demo__configuration-panel__slider {
+  display: flex;
+  flex-direction: column;
+}
+
+.conway-demo__configuration-panel__slider__label {
+  height: 2em;
+  margin-top: 1em;
+
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold !important;
+}
+
+.conway-demo__configuration-panel__slider__value {
+  display: inline-block;
+  width: 8em;
+  height: 0.2em;
+}
+
+.rs-slider-bar {
+  background-color: red !important;
+}
+
+.conway-demo__configuration-panel__input__born-condition {
+  width: 10em !important;
+  height: 2em !important;
+
+  margin: 1em;
+}
+
+.conway-demo__configuration-panel__input__born-condition input {
+  font-size: 1em !important;
+}
+
+.conway-demo__configuration-panel__input__survive-condition {
+  width: 10em !important;
+  height: 2em !important;
+
+  margin: 1em;
+  margin-left: 0em;
+}
+
+.conway-demo__configuration-panel__input__survive-condition input {
+  font-size: 1em !important;
 }

@@ -9,7 +9,7 @@ function isOutOfBounds(x: number, y: number) {
   return true;
 }
 
-export default class PixelManager {
+class PixelManager {
   pixels: number[][];
   p5: p5;
 
@@ -106,3 +106,5 @@ export default class PixelManager {
     }
   }
 }
+
+export { PixelManager };
