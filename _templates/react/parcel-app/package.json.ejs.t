@@ -1,5 +1,8 @@
+---
+to: package.json
+---
 {
-  "name": "unnamed",
+  "name": "<%= name.toLowerCase() %>",
   "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
@@ -9,16 +12,10 @@
     "start": "yarn parcel"
   },
   "dependencies": {
-    "@types/p5": "^0.9.1",
-    "p5": "^1.2.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-p5": "^1.3.6"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "parcel": "^1.12.4",
-    "typescript": "^4.1.3"
+    "parcel": "^1.12.4"
   }
 }

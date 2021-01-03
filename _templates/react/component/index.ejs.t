@@ -1,0 +1,4 @@
+---
+to: <%= path %>/<%= name %>/index.ts
+---
+export * from './<%= name %>'
