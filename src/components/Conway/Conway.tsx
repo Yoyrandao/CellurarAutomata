@@ -44,7 +44,7 @@ const Conway = () => {
     element.size(size[0], size[1]);
 
     element.style("font-size", "21px");
-    element.style("margin-top", "-5px");
+    element.style("margin-top", "50px");
   }
 
   /**
@@ -63,6 +63,7 @@ const Conway = () => {
     element.size(...size);
 
     element.style("font-size", "21px");
+    element.style("margin-top", "57px");
   }
 
   /**
@@ -149,6 +150,7 @@ const Conway = () => {
 
     slider = p5.createSlider(0, 1, RANDOM_PERCENTAGE, 0.05);
     slider.position(260, 10);
+    slider.style("margin-top", "60px");
 
     bornInput = p5.createInput(MAKE_ALIVE_CONDITION_DEFAULT.join(","));
     aliveInput = p5.createInput(NO_KILL_CONDITION_DEFAULT.join(","));
