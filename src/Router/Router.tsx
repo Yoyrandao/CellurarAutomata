@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter as AppRouter, Route, Link } from "react-router-dom";
+import { HashRouter as AppRouter, Route, Link } from "react-router-dom";
 import { Conway, Main } from "../components";
 
 import { Dropdown, Nav, Navbar } from "rsuite";

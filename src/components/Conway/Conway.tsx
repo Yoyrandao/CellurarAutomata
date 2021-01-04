@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sketch from "react-p5";
 import p5 from "p5";
 
-import {PixelManager} from "./pixelManager";
+import { PixelManager } from "./pixelManager";
 
 import {
   CANVAS_HEIGHT,
@@ -31,10 +31,11 @@ const Conway = () => {
     bornCondition: MAKE_ALIVE_CONDITION_DEFAULT,
     noKillCondition: NO_KILL_CONDITION_DEFAULT,
     started: false,
-    pixelManager: undefined as any
+    pixelManager: undefined as any,
   });
 
   /**
+   *
    * @param {p5} p5
    */
   function drawStatus(p5: p5) {
@@ -44,26 +45,36 @@ const Conway = () => {
     p5.textSize(1.5);
     p5.text(`random count: ${conwayState.randomPercentage * 100}%`, 1, 2);
 
-    p5.text(`Borns when ${conwayState.bornCondition.join(",")} cells around`, 1, 4);
     p5.text(
-      `Dies when amount of cells around not in ${conwayState.noKillCondition.join(",")}`,
+      `Borns when ${conwayState.bornCondition.join(",")} cells around`,
+      1,
+      4
+    );
+    p5.text(
+      `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
+        ","
+      )}`,
       1,
       6
     );
   }
 
   function changeGameStatus() {
-    setConwayState(prevState => {
+    setConwayState((prevState) => {
       return {
         ...prevState,
-        started: !prevState.started
-      }
+        started: !prevState.started,
+      };
     });
   }
 
   function randomize() {
     conwayState.pixelManager.clear();
-    for (let i = 0; i < conwayState.randomPercentage * CANVAS_WIDTH * CANVAS_HEIGHT; i++) {
+    for (
+      let i = 0;
+      i < conwayState.randomPercentage * CANVAS_WIDTH * CANVAS_HEIGHT;
+      i++
+    ) {
       conwayState.pixelManager.makeAlive(
         Math.floor(Math.random() * CANVAS_WIDTH),
         Math.floor(Math.random() * CANVAS_HEIGHT)
@@ -71,34 +82,61 @@ const Conway = () => {
     }
   }
 
+  /**
+   *
+   * @param value
+   */
   function onRandomChange(value: number) {
-    setConwayState(prevState => {
+    setConwayState((prevState) => {
       return {
         ...prevState,
-        randomPercentage: value
-      }
-    });
-  }
-
-  function setBornCondition(value: string, event: React.SyntheticEvent<HTMLElement, Event>) {
-    setConwayState(prevState => {
-      return {
-        ...prevState,
-        bornCondition: value.toString().split(",").map(x => +x)
-      }
-    });
-  }
-
-  function setNoKillCondition(value: string, event: React.SyntheticEvent<HTMLElement, Event>) {
-    setConwayState(prevState => {
-      return {
-        ...prevState,
-        noKillCondition: value.toString().split(",").map(x => +x)
-      }
+        randomPercentage: value,
+      };
     });
   }
 
   /**
+   *
+   * @param {string} value
+   * @param {React.SyntheticEvent<HTMLElement, Event>} event
+   */
+  function setBornCondition(
+    value: string,
+    event: React.SyntheticEvent<HTMLElement, Event>
+  ) {
+    setConwayState((prevState) => {
+      return {
+        ...prevState,
+        bornCondition: value
+          .toString()
+          .split(",")
+          .map((x) => +x),
+      };
+    });
+  }
+
+  /**
+   *
+   * @param {string} value
+   * @param {React.SyntheticEvent<HTMLElement, Event>} event
+   */
+  function setNoKillCondition(
+    value: string,
+    event: React.SyntheticEvent<HTMLElement, Event>
+  ) {
+    setConwayState((prevState) => {
+      return {
+        ...prevState,
+        noKillCondition: value
+          .toString()
+          .split(",")
+          .map((x) => +x),
+      };
+    });
+  }
+
+  /**
+   *
    * @param {p5.Element} p5
    */
   function handleInput(p5: p5) {
@@ -110,6 +148,11 @@ const Conway = () => {
     }
   }
 
+  /**
+   *
+   * @param {p5.Element} p5
+   * @param {Element} canvasParentRef
+   */
   const setup = (p5: p5, canvasParentRef: Element) => {
     p5.createCanvas(CANVAS_WIDTH * X_SCALE, CANVAS_HEIGHT * Y_SCALE).parent(
       canvasParentRef
@@ -117,14 +160,18 @@ const Conway = () => {
     p5.frameRate(10);
     p5.background(255);
 
-    setConwayState(prevState => {
+    setConwayState((prevState) => {
       return {
         ...prevState,
-        pixelManager: new PixelManager(p5)
-      }
+        pixelManager: new PixelManager(p5),
+      };
     });
   };
 
+  /**
+   *
+   * @param {p5} p5
+   */
   const draw = (p5: p5) => {
     p5.frameRate(10);
     p5.scale(X_SCALE, Y_SCALE);
