@@ -23,7 +23,7 @@ const Langton: React.FC = (): JSX.Element => {
   });
 
   /**
-   *
+   * Sets a red dot, represents an ant.
    * @param {p5} p5
    */
   const handleInput = (p5: p5) => {
@@ -45,7 +45,7 @@ const Langton: React.FC = (): JSX.Element => {
   };
 
   /**
-   * Setups new p5 sketch object
+   * Setups new p5 sketch object.
    * @param {p5} p5
    * @param {Element} canvasParentRef
    */
@@ -65,8 +65,8 @@ const Langton: React.FC = (): JSX.Element => {
   };
 
   /**
-   * Draws pixels on each frame of sketch
-   * @param {p5.Element} p5
+   * Draws pixels on each frame of sketch.
+   * @param {p5} p5
    */
   const draw = (p5: p5) => {
     p5.frameRate(60);

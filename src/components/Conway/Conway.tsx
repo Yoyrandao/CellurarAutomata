@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Sketch from 'react-p5';
 import p5 from 'p5';
+import Sketch from 'react-p5';
+
+import React, { useState } from 'react';
 
 import { ConwayPixelManager } from './conwayPixelManager';
 
+import { Button, ButtonToolbar, Input, InputGroup, Slider } from 'rsuite';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -15,7 +17,6 @@ import {
 } from './globals';
 
 import './style.css';
-import { Button, ButtonToolbar, Input, InputGroup, Slider } from 'rsuite';
 
 interface IConwayState {
   randomPercentage: number;
@@ -35,7 +36,7 @@ const Conway: React.FC = (): JSX.Element => {
   });
 
   /**
-   *
+   * Draws a status messages on a sketch.
    * @param {p5} p5
    */
   function drawStatus(p5: p5) {
@@ -83,7 +84,7 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   *
+   * Event handler that sets a state after regenerating pixel positions.
    * @param value
    */
   function onRandomChange(value: number) {
@@ -96,13 +97,13 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   *
+   * Sets a cell born condition. Value can be represent as comma-separated integers.
    * @param {string} value
    * @param {React.SyntheticEvent<HTMLElement, Event>} event
    */
   function setBornCondition(
     value: string,
-    event: React.SyntheticEvent<HTMLElement, Event>
+    _: React.SyntheticEvent<HTMLElement, Event>
   ) {
     setConwayState((prevState) => {
       return {
@@ -116,13 +117,13 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   *
+   * Sets a cell die condition. Value can be represent as comma-separated integers.
    * @param {string} value
    * @param {React.SyntheticEvent<HTMLElement, Event>} event
    */
   function setNoKillCondition(
     value: string,
-    event: React.SyntheticEvent<HTMLElement, Event>
+    _: React.SyntheticEvent<HTMLElement, Event>
   ) {
     setConwayState((prevState) => {
       return {
@@ -136,7 +137,7 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   *
+   * Sets a dots, which represent a cells.
    * @param {p5.Element} p5
    */
   function handleInput(p5: p5) {
@@ -149,8 +150,8 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   * Setups new p5 sketch object
-   * @param {p5.Element} p5
+   * Setups new p5 sketch object.
+   * @param {p5} p5
    * @param {Element} canvasParentRef
    */
   const setup = (p5: p5, canvasParentRef: Element) => {
@@ -169,7 +170,7 @@ const Conway: React.FC = (): JSX.Element => {
   };
 
   /**
-   *
+   * Draws pixels on each frame of sketch.
    * @param {p5} p5
    */
   const draw = (p5: p5) => {
@@ -212,9 +213,6 @@ const Conway: React.FC = (): JSX.Element => {
 
     conwayState.pixelManager.draw();
     drawStatus(p5);
-
-    p5.stroke(128, 128, 128);
-    p5.point(Math.floor(p5.mouseX / X_SCALE), Math.floor(p5.mouseY / Y_SCALE));
   };
 
   return (
