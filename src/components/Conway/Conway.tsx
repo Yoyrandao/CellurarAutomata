@@ -310,8 +310,8 @@ const Conway: React.FC = (): JSX.Element => {
 
           <p className="info">
             You should place some of the initial cells to see this demo working.
-            It can be made by clicking in the sketch zone or pressing the
-            <b>Randomize</b> buttom upon.
+            It can be made by clicking in the sketch zone or pressing the{' '}
+            <b>Randomize</b> button upon.
           </p>
 
           <p className="info">
