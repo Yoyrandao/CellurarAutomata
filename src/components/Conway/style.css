@@ -16,15 +16,6 @@ canvas {
   margin: 1em;
 }
 
-.conway-demo__configuration-panel__button__start {
-  width: 7em;
-  height: 3em;
-
-  font-weight: bold !important;
-  font-size: 0.7em !important;
-  font-family: 'Segoe UI', sans-serif !important;
-}
-
 .conway-demo__configuration-panel__slider {
   display: flex;
   flex-direction: column;

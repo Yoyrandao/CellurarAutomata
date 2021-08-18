@@ -26,6 +26,7 @@ const Router = () => {
                 Home
               </Link>
             </Nav.Item>
+
             <Dropdown
               className="navigation__dropbox"
               size="lg"
@@ -37,6 +38,7 @@ const Router = () => {
                   Conway's Game of Life
                 </Link>
               </Dropdown.Item>
+
               <Dropdown.Item eventKey="2-2">
                 <Link style={{ fontSize: '1.2em' }} to="/langton">
                   Langton's Ant

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sketch from 'react-p5';
 import p5 from 'p5';
 
-import { PixelManager } from './pixelManager';
+import { ConwayPixelManager } from './conwayPixelManager';
 
 import {
   CANVAS_HEIGHT,
@@ -22,7 +22,7 @@ interface IConwayState {
   bornCondition: number[];
   noKillCondition: number[];
   started: boolean;
-  pixelManager: PixelManager;
+  pixelManager: ConwayPixelManager;
 }
 
 const Conway: React.FC = (): JSX.Element => {
@@ -149,7 +149,7 @@ const Conway: React.FC = (): JSX.Element => {
   }
 
   /**
-   *
+   * Setups new p5 sketch object
    * @param {p5.Element} p5
    * @param {Element} canvasParentRef
    */
@@ -163,7 +163,7 @@ const Conway: React.FC = (): JSX.Element => {
     setConwayState((prevState) => {
       return {
         ...prevState,
-        pixelManager: new PixelManager(p5)
+        pixelManager: new ConwayPixelManager(p5)
       };
     });
   };

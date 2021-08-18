@@ -1,0 +1,23 @@
+canvas {
+  border: 2px solid black;
+}
+
+.langton-demo {
+  margin: auto;
+  width: 40em;
+}
+
+.langton-demo__configuration-panel {
+  display: flex !important;
+
+  justify-content: space-between;
+
+  width: 50%;
+  margin: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.langton-demo__configuration-panel__turn {
+  align-self: center;
+}
