@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Sketch from "react-p5";
-import p5 from "p5";
+import React, { useState } from 'react';
+import Sketch from 'react-p5';
+import p5 from 'p5';
 
-import { PixelManager } from "./pixelManager";
+import { PixelManager } from './pixelManager';
 
 import {
   CANVAS_HEIGHT,
@@ -11,11 +11,11 @@ import {
   NO_KILL_CONDITION_DEFAULT,
   RANDOM_PERCENTAGE_DEFAULT,
   X_SCALE,
-  Y_SCALE,
-} from "./globals";
+  Y_SCALE
+} from './globals';
 
-import "./style.css";
-import { Button, ButtonToolbar, Input, InputGroup, Slider } from "rsuite";
+import './style.css';
+import { Button, ButtonToolbar, Input, InputGroup, Slider } from 'rsuite';
 
 interface IConwayState {
   randomPercentage: number;
@@ -31,7 +31,7 @@ const Conway = () => {
     bornCondition: MAKE_ALIVE_CONDITION_DEFAULT,
     noKillCondition: NO_KILL_CONDITION_DEFAULT,
     started: false,
-    pixelManager: undefined as any,
+    pixelManager: undefined as any
   });
 
   /**
@@ -43,16 +43,16 @@ const Conway = () => {
     p5.strokeWeight(0.5);
     p5.fill(0, 255, 0);
     p5.textSize(1.5);
-    p5.text(`random count: ${conwayState.randomPercentage * 100}%`, 1, 2);
+    p5.text(`random count: ${conwayState.randomPercentage}%`, 1, 2);
 
     p5.text(
-      `Borns when ${conwayState.bornCondition.join(",")} cells around`,
+      `Borns when ${conwayState.bornCondition.join(',')} cells around`,
       1,
       4
     );
     p5.text(
       `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
-        ","
+        ','
       )}`,
       1,
       6
@@ -63,7 +63,7 @@ const Conway = () => {
     setConwayState((prevState) => {
       return {
         ...prevState,
-        started: !prevState.started,
+        started: !prevState.started
       };
     });
   }
@@ -72,7 +72,7 @@ const Conway = () => {
     conwayState.pixelManager.clear();
     for (
       let i = 0;
-      i < conwayState.randomPercentage * CANVAS_WIDTH * CANVAS_HEIGHT;
+      i < (conwayState.randomPercentage / 100) * CANVAS_WIDTH * CANVAS_HEIGHT;
       i++
     ) {
       conwayState.pixelManager.makeAlive(
@@ -90,7 +90,7 @@ const Conway = () => {
     setConwayState((prevState) => {
       return {
         ...prevState,
-        randomPercentage: value,
+        randomPercentage: value
       };
     });
   }
@@ -109,8 +109,8 @@ const Conway = () => {
         ...prevState,
         bornCondition: value
           .toString()
-          .split(",")
-          .map((x) => +x),
+          .split(',')
+          .map((x) => +x)
       };
     });
   }
@@ -129,8 +129,8 @@ const Conway = () => {
         ...prevState,
         noKillCondition: value
           .toString()
-          .split(",")
-          .map((x) => +x),
+          .split(',')
+          .map((x) => +x)
       };
     });
   }
@@ -163,7 +163,7 @@ const Conway = () => {
     setConwayState((prevState) => {
       return {
         ...prevState,
-        pixelManager: new PixelManager(p5),
+        pixelManager: new PixelManager(p5)
       };
     });
   };
@@ -226,37 +226,45 @@ const Conway = () => {
             appearance="primary"
             onClick={changeGameStatus}
           >
-            {conwayState.started ? "Stop" : "Start"}
+            {conwayState.started ? 'Stop' : 'Start'}
           </Button>
           <Button
             className="conway-demo__configuration-panel__button__randomize"
-            appearance="default"
+            appearance="primary"
             onClick={randomize}
           >
             Randomize
           </Button>
         </ButtonToolbar>
         <div className="conway-demo__configuration-panel__slider">
-          <span className="conway-demo__configuration-panel__slider__label">Random cells %</span>
+          <span className="conway-demo__configuration-panel__slider__label">
+            Random cells %
+          </span>
           <Slider
-              className="conway-demo__configuration-panel__slider__value"
-              defaultValue={RANDOM_PERCENTAGE_DEFAULT}
-              onChange={onRandomChange}
-              min={0.05}
-              max={1.0}
-              step={0.05}
-            />
+            className="conway-demo__configuration-panel__slider__value"
+            defaultValue={RANDOM_PERCENTAGE_DEFAULT}
+            onChange={onRandomChange}
+            min={5}
+            max={100}
+            step={5}
+          />
         </div>
         <InputGroup className="conway-demo__configuration-panel__input__born-condition">
           <InputGroup.Addon>Born condition</InputGroup.Addon>
-          <Input value={conwayState.bornCondition.join(",")} onChange={setBornCondition}/>
+          <Input
+            value={conwayState.bornCondition.join(',')}
+            onChange={setBornCondition}
+          />
         </InputGroup>
         <InputGroup className="conway-demo__configuration-panel__input__survive-condition">
           <InputGroup.Addon>Survive condition</InputGroup.Addon>
-          <Input value={conwayState.noKillCondition.join(",")} onChange={setNoKillCondition}/>
+          <Input
+            value={conwayState.noKillCondition.join(',')}
+            onChange={setNoKillCondition}
+          />
         </InputGroup>
       </div>
-     
+
       <Sketch setup={setup} draw={draw} />
     </div>
   );
