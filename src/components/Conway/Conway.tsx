@@ -51,23 +51,23 @@ const Conway: React.FC = (): JSX.Element => {
    * @param {p5} p5
    */
   function drawStatus(p5: p5) {
-    // p5.stroke(0);
-    // p5.strokeWeight(0.5);
-    // p5.fill(0, 255, 0);
-    // p5.textSize(1.5);
-    // p5.text(`random count: ${conwayState.randomPercentage}%`, 1, 2);
-    // p5.text(
-    //   `Borns when ${conwayState.bornCondition.join(',')} cells around`,
-    //   1,
-    //   4
-    // );
-    // p5.text(
-    //   `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
-    //     ','
-    //   )}`,
-    //   1,
-    //   6
-    // );
+    p5.stroke(0);
+    p5.strokeWeight(0.5);
+    p5.fill(0, 255, 0);
+    p5.textSize(1.5);
+    p5.text(`random count: ${conwayState.randomPercentage}%`, 1, 2);
+    p5.text(
+      `Borns when ${conwayState.bornCondition.join(',')} cells around`,
+      1,
+      4
+    );
+    p5.text(
+      `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
+        ','
+      )}`,
+      1,
+      6
+    );
   }
 
   function changeGameStatus() {
