@@ -5,7 +5,17 @@ import React, { useState } from 'react';
 
 import { ConwayPixelManager } from './conwayPixelManager';
 
-import { Button, ButtonToolbar, Input, InputGroup, Slider } from 'rsuite';
+import {
+  Button,
+  ButtonToolbar,
+  Divider,
+  Drawer,
+  Icon,
+  IconButton,
+  Input,
+  InputGroup,
+  Slider
+} from 'rsuite';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -27,6 +37,7 @@ interface IConwayState {
 }
 
 const Conway: React.FC = (): JSX.Element => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [conwayState, setConwayState] = useState<IConwayState>({
     randomPercentage: RANDOM_PERCENTAGE_DEFAULT,
     bornCondition: MAKE_ALIVE_CONDITION_DEFAULT,
@@ -40,24 +51,23 @@ const Conway: React.FC = (): JSX.Element => {
    * @param {p5} p5
    */
   function drawStatus(p5: p5) {
-    p5.stroke(0);
-    p5.strokeWeight(0.5);
-    p5.fill(0, 255, 0);
-    p5.textSize(1.5);
-    p5.text(`random count: ${conwayState.randomPercentage}%`, 1, 2);
-
-    p5.text(
-      `Borns when ${conwayState.bornCondition.join(',')} cells around`,
-      1,
-      4
-    );
-    p5.text(
-      `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
-        ','
-      )}`,
-      1,
-      6
-    );
+    // p5.stroke(0);
+    // p5.strokeWeight(0.5);
+    // p5.fill(0, 255, 0);
+    // p5.textSize(1.5);
+    // p5.text(`random count: ${conwayState.randomPercentage}%`, 1, 2);
+    // p5.text(
+    //   `Borns when ${conwayState.bornCondition.join(',')} cells around`,
+    //   1,
+    //   4
+    // );
+    // p5.text(
+    //   `Dies when amount of cells around not in ${conwayState.noKillCondition.join(
+    //     ','
+    //   )}`,
+    //   1,
+    //   6
+    // );
   }
 
   function changeGameStatus() {
@@ -216,46 +226,99 @@ const Conway: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div className="conway-demo">
-      <div className="conway-demo__configuration-panel">
-        <ButtonToolbar className="conway-demo__configuration-panel__toolbar">
-          <Button size="lg" appearance="primary" onClick={changeGameStatus}>
-            {conwayState.started ? 'Stop' : 'Start'}
-          </Button>
-          <Button size="lg" appearance="primary" onClick={randomize}>
-            Randomize
-          </Button>
-        </ButtonToolbar>
-        <div className="conway-demo__configuration-panel__slider">
-          <span className="conway-demo__configuration-panel__slider__label">
-            Random cells %
-          </span>
-          <Slider
-            className="conway-demo__configuration-panel__slider__value"
-            defaultValue={RANDOM_PERCENTAGE_DEFAULT}
-            onChange={onRandomChange}
-            min={5}
-            max={100}
-            step={5}
-          />
-        </div>
-        <InputGroup className="conway-demo__configuration-panel__input__born-condition">
-          <InputGroup.Addon>Born condition</InputGroup.Addon>
-          <Input
-            value={conwayState.bornCondition.join(',')}
-            onChange={setBornCondition}
-          />
-        </InputGroup>
-        <InputGroup className="conway-demo__configuration-panel__input__survive-condition">
-          <InputGroup.Addon>Survive condition</InputGroup.Addon>
-          <Input
-            value={conwayState.noKillCondition.join(',')}
-            onChange={setNoKillCondition}
-          />
-        </InputGroup>
+    <div className="conway">
+      <div className="info-button">
+        <IconButton
+          size="lg"
+          appearance="primary"
+          icon={<Icon icon="info" />}
+          onClick={() => setShowInfo(true)}
+        />
       </div>
 
-      <Sketch setup={setup} draw={draw} />
+      <div className="conway-demo">
+        <div className="conway-demo__configuration-panel">
+          <ButtonToolbar className="conway-demo__configuration-panel__toolbar">
+            <Button size="lg" appearance="primary" onClick={changeGameStatus}>
+              {conwayState.started ? 'Stop' : 'Start'}
+            </Button>
+            <Button size="lg" appearance="primary" onClick={randomize}>
+              Randomize
+            </Button>
+          </ButtonToolbar>
+          <div className="conway-demo__configuration-panel__slider">
+            <span className="conway-demo__configuration-panel__slider__label">
+              Random cells %
+            </span>
+            <Slider
+              className="conway-demo__configuration-panel__slider__value"
+              defaultValue={RANDOM_PERCENTAGE_DEFAULT}
+              onChange={onRandomChange}
+              min={5}
+              max={100}
+              step={5}
+            />
+          </div>
+          <InputGroup className="conway-demo__configuration-panel__input__born-condition">
+            <InputGroup.Addon>Born condition</InputGroup.Addon>
+            <Input
+              value={conwayState.bornCondition.join(',')}
+              onChange={setBornCondition}
+            />
+          </InputGroup>
+          <InputGroup className="conway-demo__configuration-panel__input__survive-condition">
+            <InputGroup.Addon>Survive condition</InputGroup.Addon>
+            <Input
+              value={conwayState.noKillCondition.join(',')}
+              onChange={setNoKillCondition}
+            />
+          </InputGroup>
+        </div>
+
+        <Sketch setup={setup} draw={draw} />
+      </div>
+
+      <Drawer show={showInfo} onHide={() => setShowInfo(false)}>
+        <Drawer.Header>
+          <Drawer.Title>Conway's Game of Life</Drawer.Title>
+        </Drawer.Header>
+        <Drawer.Body>
+          <p className="info">
+            The Game of Life is a cellular automaton devised by the British
+            mathematician John Horton Conway in 1970. It is a zero-player game,
+            meaning that its evolution is determined by its initial state,
+            requiring no further input.
+          </p>
+          <div className="info_demo-gif">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif" />
+          </div>
+
+          <div className="info_demo-link">
+            <p className="info_demo-link_text">
+              More about this in{' '}
+              <a
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life"
+              >
+                Wikipedia
+              </a>
+              .
+            </p>
+          </div>
+
+          <Divider />
+
+          <p className="info">
+            You should place some of the initial cells to see this demo working.
+            It can be made by clicking in the sketch zone or pressing the
+            <b>Randomize</b> buttom upon.
+          </p>
+
+          <p className="info">
+            Press <b>Start</b> when all needed cells are filled.
+          </p>
+        </Drawer.Body>
+      </Drawer>
     </div>
   );
 };

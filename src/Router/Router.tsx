@@ -13,7 +13,11 @@ const Router = () => {
     <AppRouter>
       <Navbar className="navigation">
         <Navbar.Header>
-          <span className="navigation__title__content">Cellular Automata</span>
+          <span className="navigation__title__content">
+            <a className="navigation__title__content__logo-link" href="/">
+              Cellular Automata
+            </a>
+          </span>
         </Navbar.Header>
         <Navbar.Body>
           <Nav>
@@ -27,20 +31,15 @@ const Router = () => {
               </Link>
             </Nav.Item>
 
-            <Dropdown
-              className="navigation__dropbox"
-              size="lg"
-              title="Demos"
-              eventKey="2"
-            >
+            <Dropdown size="lg" title="Demos" eventKey="2">
               <Dropdown.Item eventKey="2-1">
-                <Link style={{ fontSize: '1.2em' }} to="/conway">
+                <Link className="navigation__dropbox_item" to="/conway">
                   Conway's Game of Life
                 </Link>
               </Dropdown.Item>
 
               <Dropdown.Item eventKey="2-2">
-                <Link style={{ fontSize: '1.2em' }} to="/langton">
+                <Link className="navigation__dropbox_item" to="/langton">
                   Langton's Ant
                 </Link>
               </Dropdown.Item>

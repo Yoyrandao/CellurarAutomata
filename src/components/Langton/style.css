@@ -21,3 +21,41 @@ canvas {
 .langton-demo__configuration-panel__turn {
   align-self: center;
 }
+
+.info {
+  font-size: 16px;
+}
+
+.info_demo-gif {
+  overflow: hidden;
+
+  width: 33em;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  justify-content: space-around;
+
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 20px;
+}
+
+.info_demo-link {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info_demo-link_text {
+  width: 15em;
+}
+
+.info-button {
+  margin: 1em;
+}
+
+.langton {
+  display: flex;
+}

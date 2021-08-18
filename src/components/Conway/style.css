@@ -1,6 +1,6 @@
-canvas {
+/* canvas {
   border: 2px solid black;
-}
+} */
 
 .conway-demo {
   margin: auto;
@@ -61,4 +61,40 @@ canvas {
 
 .conway-demo__configuration-panel__input__survive-condition input {
   font-size: 1em !important;
+}
+
+.info {
+  font-size: 16px;
+}
+
+.info_demo-gif {
+  width: 20em;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  justify-content: space-around;
+
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 20px;
+}
+
+.info_demo-link {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info_demo-link_text {
+  width: 15em;
+}
+
+.info-button {
+  margin: 1em;
+}
+
+.conway {
+  display: flex;
 }

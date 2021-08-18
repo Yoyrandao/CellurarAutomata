@@ -13,14 +13,12 @@
   border-color: black;
 
   background-color: #272c36 !important;
+
+  color: white !important;
 }
 
 .rs-dropdown-toggle-caret {
   top: 1.2em !important;
-}
-
-.rs-btn-lg {
-  color: white !important;
 }
 
 .rs-btn:hover,
@@ -28,7 +26,23 @@
   background-color: #424b5c !important;
 }
 
-a {
-  font-size: 1em;
-  font-family: 'Segoe UI', sans-serif;
+.navigation__title__content__logo-link {
+  outline: none !important;
+  text-decoration: none !important;
+
+  color: white !important;
+}
+
+.navigation__dropbox_item {
+  font-size: 1.2em !important;
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.rs-dropdown > a {
+  color: white !important;
+}
+
+.rs-dropdown > a:hover {
+  background-color: #424b5c !important;
 }

@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 
 import p5 from 'p5';
 import Sketch from 'react-p5';
-import { Button, ButtonToolbar } from 'rsuite';
+import {
+  Button,
+  ButtonToolbar,
+  Divider,
+  Drawer,
+  Icon,
+  IconButton
+} from 'rsuite';
 
 import { CANVAS_HEIGHT, CANVAS_WIDTH, X_SCALE, Y_SCALE } from './globals';
 import { LangtonPixelManager } from './langtonPixelManager';
@@ -16,6 +23,7 @@ interface ILangtonState {
 }
 
 const Langton: React.FC = (): JSX.Element => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [langtonState, setLangtonState] = useState<ILangtonState>({
     turn: 0,
     started: false,
@@ -99,19 +107,67 @@ const Langton: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div className="langton-demo">
-      <div className="langton-demo__configuration-panel">
-        <ButtonToolbar>
-          <Button size="lg" appearance="primary" onClick={changeGameStatus}>
-            {langtonState.started ? 'Stop' : 'Start'}
-          </Button>
-        </ButtonToolbar>
-        <p className="langton-demo__configuration-panel__turn">
-          Turn: {langtonState.turn}
-        </p>
+    <div className="langton">
+      <div className="info-button">
+        <IconButton
+          size="lg"
+          appearance="primary"
+          icon={<Icon icon="info" />}
+          onClick={() => setShowInfo(true)}
+        />
       </div>
 
-      <Sketch setup={setup} draw={draw} />
+      <div className="langton-demo">
+        <div className="langton-demo__configuration-panel">
+          <ButtonToolbar>
+            <Button size="lg" appearance="primary" onClick={changeGameStatus}>
+              {langtonState.started ? 'Stop' : 'Start'}
+            </Button>
+          </ButtonToolbar>
+          <p className="langton-demo__configuration-panel__turn">
+            Turn: {langtonState.turn}
+          </p>
+        </div>
+
+        <Sketch setup={setup} draw={draw} />
+      </div>
+
+      <Drawer show={showInfo} onHide={() => setShowInfo(false)}>
+        <Drawer.Header>
+          <Drawer.Title>Conway's Game of Life</Drawer.Title>
+        </Drawer.Header>
+        <Drawer.Body>
+          <p className="info">
+            Langton's ant is a two-dimensional universal Turing machine with a
+            very simple set of rules but complex emergent behavior. It was
+            invented by Chris Langton in 1986 and runs on a square lattice of
+            black and white cells.
+          </p>
+          <div className="info_demo-gif">
+            <img src="https://i.imgur.com/O0EPfUy.gif" />
+          </div>
+
+          <div className="info_demo-link">
+            <p className="info_demo-link_text">
+              More about this in{' '}
+              <a
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Langton's_ant"
+              >
+                Wikipedia
+              </a>
+              .
+            </p>
+          </div>
+
+          <Divider />
+
+          <p className="info">
+            You should place red dot which represent an ant in this game. When
+            it's placed click the <b>Start</b> button.
+          </p>
+        </Drawer.Body>
+      </Drawer>
     </div>
   );
 };
