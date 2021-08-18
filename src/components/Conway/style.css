@@ -23,19 +23,6 @@ canvas {
   font-weight: bold !important;
   font-size: 0.7em !important;
   font-family: 'Segoe UI', sans-serif !important;
-
-  border: 2px solid black !important;
-}
-
-.conway-demo__configuration-panel__button__randomize {
-  width: 7em;
-  height: 3em;
-
-  font-weight: bold !important;
-  font-size: 0.7em !important;
-  font-family: 'Segoe UI', sans-serif !important;
-
-  border: 0.2em solid black !important;
 }
 
 .conway-demo__configuration-panel__slider {

@@ -25,7 +25,7 @@ interface IConwayState {
   pixelManager: PixelManager;
 }
 
-const Conway = () => {
+const Conway: React.FC = (): JSX.Element => {
   const [conwayState, setConwayState] = useState<IConwayState>({
     randomPercentage: RANDOM_PERCENTAGE_DEFAULT,
     bornCondition: MAKE_ALIVE_CONDITION_DEFAULT,
@@ -221,18 +221,10 @@ const Conway = () => {
     <div className="conway-demo">
       <div className="conway-demo__configuration-panel">
         <ButtonToolbar className="conway-demo__configuration-panel__toolbar">
-          <Button
-            className="conway-demo__configuration-panel__button__start"
-            appearance="primary"
-            onClick={changeGameStatus}
-          >
+          <Button size="lg" appearance="primary" onClick={changeGameStatus}>
             {conwayState.started ? 'Stop' : 'Start'}
           </Button>
-          <Button
-            className="conway-demo__configuration-panel__button__randomize"
-            appearance="primary"
-            onClick={randomize}
-          >
+          <Button size="lg" appearance="primary" onClick={randomize}>
             Randomize
           </Button>
         </ButtonToolbar>

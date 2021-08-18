@@ -1,12 +1,12 @@
 import React from 'react';
-
-import { HashRouter as AppRouter, Route, Link } from 'react-router-dom';
-import { Conway, Main } from '../components';
+import { BrowserRouter as AppRouter, Route, Link } from 'react-router-dom';
 
 import { Dropdown, Nav, Navbar } from 'rsuite';
 
-import 'rsuite/dist/styles/rsuite-default.css';
+import { Conway, Langton, Main } from '../components';
+
 import './style.css';
+import 'rsuite/dist/styles/rsuite-default.css';
 
 const Router = () => {
   return (
@@ -21,7 +21,7 @@ const Router = () => {
               <Link
                 style={{ fontSize: '1.2em', color: 'white' }}
                 className="navigation__body__text"
-                to="/a"
+                to="/"
               >
                 Home
               </Link>
@@ -37,13 +37,19 @@ const Router = () => {
                   Conway's Game of Life
                 </Link>
               </Dropdown.Item>
+              <Dropdown.Item eventKey="2-2">
+                <Link style={{ fontSize: '1.2em' }} to="/langton">
+                  Langton's Ant
+                </Link>
+              </Dropdown.Item>
             </Dropdown>
           </Nav>
         </Navbar.Body>
       </Navbar>
 
-      <Route path="/conway" component={Conway} />
-      <Route path="/a" component={Main} />
+      <Route exact path="/langton" component={Langton} />
+      <Route exact path="/conway" component={Conway} />
+      <Route exact path="/" component={Main} />
     </AppRouter>
   );
 };

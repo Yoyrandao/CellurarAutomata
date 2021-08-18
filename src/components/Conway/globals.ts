@@ -1,7 +1,7 @@
 export const CANVAS_WIDTH = 90;
 export const CANVAS_HEIGHT = 90;
 
-export const RANDOM_PERCENTAGE_DEFAULT = 0.25;
+export const RANDOM_PERCENTAGE_DEFAULT = 5;
 
 export const X_SCALE = 10;
 export const Y_SCALE = 10;
