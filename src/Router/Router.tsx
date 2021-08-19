@@ -6,7 +6,6 @@ import { Dropdown, Nav, Navbar } from 'rsuite';
 import { Conway, Langton, Main } from '../components';
 
 import './style.css';
-import 'rsuite/dist/styles/rsuite-default.css';
 
 const Router = () => {
   return (
